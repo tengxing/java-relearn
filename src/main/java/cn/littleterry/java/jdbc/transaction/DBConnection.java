@@ -1,4 +1,4 @@
-package cn.yjxxclub.java.jdbc.transaction;
+package cn.littleterry.java.jdbc.transaction;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

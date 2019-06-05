@@ -1,4 +1,4 @@
-package cn.yjxxclub.java.jdbc.datasource;
+package cn.littleterry.java.jdbc.datasource;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import org.postgresql.ds.PGSimpleDataSource;

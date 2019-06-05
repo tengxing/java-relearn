@@ -1,17 +1,17 @@
-package cn.yjxxclub.java.jdbc.transaction;
+package cn.littleterry.java.jdbc.transaction;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * JDBC事务操作例子
+ * JDBC没有事务操作例子
  *
  * @author XTENG
  * @email tengxing7452@163.com
- * @date 18-5-3 下午4:08
+ * @date 18-5-3 下午4:01
  */
-public class JDBCTransactionExample {
+public class JDBCInsertExample {
     public static final String INSERT_EMPLOYEE_QUERY = "insert into Employee (empId, name) values (?,?)";
 
     public static void main(String[] args) {
@@ -19,33 +19,16 @@ public class JDBCTransactionExample {
         Connection con = null;
         try {
             con = DBConnection.getConnection();
-
             /**
-             * 关闭自动提交
+             * 插入id为100
              */
-            con.setAutoCommit(false);
-
-
             insertEmployeeData(con, 100, "name1");
+            /**
+             * 继续插入id为100(会报错:Duplicate entry '100' for key 'PRIMARY)
+             */
             insertEmployeeData(con, 100, "name2");
 
-            /**
-             * 手动提交
-             */
-            con.commit();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            try {
-                /**
-                 * 回滚
-                 */
-                con.rollback();
-                System.out.println("JDBC Transaction rolled back successfully");
-            } catch (SQLException e1) {
-                System.out.println("SQLException in rollback" + e1.getMessage());
-            }
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -58,7 +41,7 @@ public class JDBCTransactionExample {
         }
     }
 
-    public static void insertEmployeeData(Connection con, int empId, String name)
+    public static void insertEmployeeData(Connection con, int empId,String name)
             throws SQLException {
         PreparedStatement stmt = con.prepareStatement(INSERT_EMPLOYEE_QUERY);
         stmt.setInt(1, empId);

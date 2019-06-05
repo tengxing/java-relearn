@@ -1,4 +1,4 @@
-package cn.yjxxclub.java.jdbc.datasource;
+package cn.littleterry.java.jdbc.datasource;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

@@ -1,4 +1,4 @@
-package cn.yjxxclub.java.jdbc.batch;
+package cn.littleterry.java.jdbc.batch;
 
 import cn.yjxxclub.java.jdbc.DbConn;
 
@@ -7,14 +7,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Statement 普通插入
- * Time Taken=14666
+ * Statement batch插入
+ * Time Taken=11605
  *
  * @author XTENG
  * @email tengxing7452@163.com
- * @date 18-4-29 上午11:17
+ * @date 18-4-29 上午11:25
  */
-public class JDBCStatement {
+public class JDBCStatementBatch {
 
     public static void main(String[] args) {
 
@@ -28,8 +28,13 @@ public class JDBCStatement {
             long start = System.currentTimeMillis();
             for (int i = 0; i < 10000; i++) {
                 String query = "insert into Employee values (" + i + ",'Name" + i + "')";
-                stmt.execute(query);
+                stmt.addBatch(query);
+
+                if (i % 1000 == 0) {
+                    stmt.executeBatch();
+                }
             }
+            stmt.executeBatch();
             System.out.println("Time Taken=" + (System.currentTimeMillis() - start));
 
         } catch (SQLException e) {
